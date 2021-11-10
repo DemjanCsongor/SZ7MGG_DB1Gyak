@@ -11,4 +11,4 @@ kategoria char(20)
 
 alter table termekek add(szin char(30));
 drop table termekek;
-delete from termekek where katehorioa is null;
+delete from termekek where kategoria is null;
