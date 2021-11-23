@@ -1,0 +1,44 @@
+Lekérdezések:
+1.)	Kilistázza azokat az eszközöket, amelyek 10-es rendszerverziót futtatnak, és frissítésre szorulnak:
+SELECT * FROM eszkoz WHERE SzoftverVerzio = 10;
+𝜎SzoftverVerzio=10 (eszkoz)
+ 
+2.)	Budapesti beszállítók neveit és telefonszámait listázza ki:
+SELECT Nev, Telefonszam FROM beszallito WHERE Telepules = 'Budapest';
+𝜋Nev, Telefon (𝜎Telepules = ’Budapest’ (beszallito))
+ 
+ 
+3.)	Kilistázza azoknak a munkavállalóknak a teljes nevét és emailét, akinek keresztnevük B-vel kezdődik a nevük:
+SELECT Vezetéknév, Keresztnév, Email FROM munkavallalo WHERE Keresztnév LIKE 'B%';
+𝜋Vezeteknev, Keresztnev, Email (𝜎Keresztnev = ’B%’ (Munkavallalo))
+ 
+4.)	Kilistázza azoknak a munkavállalóknak az adatai, akik home office-ban vannak:
+SELECT *FROM Munkavallalo WHERE HomeOffice = 1;
+𝜎HomeOffice =1 (Munkavallalo)
+ 
+ 
+5.)	Kilistázza azon eszközöket, amik laptopok és a 303 (harmadik emelet 3-as szoba) vannak elhelyezve:
+SELECT * FROM Eszkoz WHERE Tipus = ’Laptop’ AND Elhelyezve = ’303’;
+𝜎Tipus = ’Laptop’, Elhelyezve = ’303’ (Eszkoz)
+ 
+6.)	Kilistázza a 202 szobában található eszközök ID-ját, azok kereszt- és vezetéknevét, akik használják és a szobaszámot is a teljes bizonyosság kedvéért.
+SELECT eszkoz.eid, munkavallalo.vezetéknév, munkavallalo.keresztnév, munkavallalo.szobaszam FROM eszkoz INNER JOIN munkavallalo ON eszkoz.muid = szobaszam.muid WHERE munkavallalo.szobaszam = ’202’;
+𝜋 Eszkoz.EID, Munkavallalo.Vezetéknév, Munkavallalo.Keresztnév, Munkavallalo.Szobaszam (𝜎Munkavallalo.Szobaszam=’202’(Eszkoz)) ⨝Eszkoz.MUID = Szobaszam.MUID(Munkavallalo)
+ 
+7.)	Kilistázza Tóth Lajos eszközeinek ID-ját, gyári számát és az azokon futó szoftververziókat:
+SELECT Munkavallalo.Vezetéknév, Munkavallalo.Keresztnév, Eszkoz.EAzonosito, Eszkoz.SzoftverVerzio FROM Eszkoz INNER JOIN Munkavallalo ON Munkavallalo.MUID = Eszkoz.MUID WHERE Munkavallalo.Vezetéknév = 'Tóth' AND Munkavallalo.Keresztnév = 'Lajos';
+𝜋 Munkavallalo.Vezetéknév, Munkavallalo.Keresztnév, Eszkoz.EAzonosito, Eszkoz.SzoftverVerzio (Munkavallalo) ⨝ Munkavallalo.Vezetéknév = Tóth, Munkavallalo.Keresztnév = Lajos (Eszkoz)
+ 
+ 
+8.)	Kilistázza az eszközöket úgy, hogy megszámolja a hány van belőlük és csoportot képezünk:
+SELECT Eszkoz.Tipus, COUNT(Eszkoz.Tipus) FROM Eszkoz GROUP BY Tipus;
+𝜋Eszkoz.Tipus, COUNT(Eszkoz.Tipus)( ΓGROUP BY TipusCOUNT(Eszkoz.Tipus) (Eszkoz))
+ 
+9.)	Kilistázza azon munkavállalók nevét, telefonszámát, akik otthonról dolgoznak és M-el kezdődik a típusuk, a monitor ID-jét is kiírja:
+SELECT Munkavallalo.Keresztnév, Munkavallalo.Vezetéknév, Munkavallalo.Telefon, Eszkoz.EID FROM Munkavallalo INNER JOIN Eszkoz ON Eszkoz.MUID = Munkavallalo.MUID WHERE HomeOffice = 1 AND Tipus LIKE 'M%' ;
+𝜋Munkavallalo.Keresztnév, Munkavallalo.Vezetéknév, Munkavallalo.Telefon, Eszkoz.EID(Munkavallalo) ⨝HomeOffice = 1, Tipus LIKE ‘M%’(Eszkoz)
+ 
+ 
+10.)	Kilistázza az összes telefonszámot úgy, hogy a hozzá tartozó nevek a bal oldalon állnak:
+SELECT Munkavallalo.Vezetéknév, Munkavallalo.Keresztnév, Munkavallalo.Telefon, ITMunkavallalo.Vezetéknév, ITMunkavallalo.Keresztnév, ITMunkavallalo.Telefon, Beszallito.Nev, Beszallito.Telefonszam FROM Munkavallalo JOIN ITMunkavallalo ON ITMunkavallalo.ITMID = Munkavallalo.MUID JOIN Beszallito ON Beszallito.BID = Munkavallalo.MUID GROUP BY Munkavallalo.Telefon, ITMunkavallalo.Telefon, Beszallito.Telefonszam;
+𝜋 Munkavallalo.Vezetéknév, Munkavallalo.Keresztnév, Munkavallalo.Telefon, ITMunkavallalo.Vezetéknév, ITMunkavallalo.Keresztnév, ITMunkavallalo.Telefon, Beszallito.Nev, Beszallito.Telefonszam(𝜎 GROUP BY Munkavallalo.Telefon, ITMunkavallalo.Telefon, Beszallito.Telefonszam (Munkavallalo⨝ ITMunkavallalo ⨝ Beszallito))

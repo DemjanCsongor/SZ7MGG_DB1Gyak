@@ -1,0 +1,8 @@
+Beszallito[BID, Nev, Telefon, Email, Irsz, Telepules, Utca, Hazszam]
+Munkavallalo[MUID,Vezeteknev, Keresztnev, Telefon, Email, Szobaszam, HomeOffice]
+Eszköz[EID, Tipus, EAzonosito, SzoftverVerzio, Elhelyezve, MUID]
+ITMunkavallalo[ITMID, Vezeteknev, Keresztnev, Telefon, Email]
+Alkalmazas[AID, InstallGroup, InstallEnable, EleresiUt]
+B-E[BID, EID]
+E-ITM[ITMID, EID]
+E-A[AID, EID]
