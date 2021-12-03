@@ -1,6 +1,6 @@
-create database sz7mgg_8_1;
+create database sz7mgg_8_2;
 
-use sz7mgg_8_1;
+use sz7mgg_8_2;
 
 create table gyarto (
 adoszam int primary key,
