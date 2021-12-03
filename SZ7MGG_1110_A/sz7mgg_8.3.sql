@@ -43,8 +43,9 @@ insert into befizetes values(4, 87321663, '5000');
 insert into befizetes values(3, 79321121, '5000');
 insert into befizetes values(4, 79321121, '5000');
 
-select count(tanfolyam.tipus) from tanfolyam where tanfolyam.tkod = befizetes.kurzus group by tanfolyam.tipus;
-select count(tanfolyam.tkod) from tanfolyam group by tanfolyam.tkod;
-select count(befizetes.befizetes) from befizetes group by tanfolyam.megnevezes;
-select count(befizetes.befizetes='5000') from befizetes;
-select count(befizetes.befizetes) from befizetes where tenfolyam.megnevezes='Eszterga' group by resztvevo.lakcim;
+select tipus, count(*) db from tanfolyam group by tipus;
+select kurzus, count(*) db from befizetes group by kurzus;
+select t.nev, count(*) db from befizetes b INNER join tanfolyam t on b.kurzus = t.tkod;
+select t.nev, count(*) db from befizetes b INNER join tanfolyam t on ;b.kurzus = t.tkod where b.befizetes = t.ar;
+select r.lakcim, count(*) db from befizetes b INNER join resztvevo r on b.diak = r.tajszam where b.kurzus IN (select tkod from tanfolyam where megnevezes = ‘Eszterga’);
+
